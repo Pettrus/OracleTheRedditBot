@@ -21,7 +21,7 @@ def saveSubmission(title):
     img.save('images/frame1.png')
 
 def saveComment(author, text, fontSize, frame):
-    lines = textwrap.wrap(text, width=90)
+    lines = textwrap.wrap(text, width=85)
 
     font = ImageFont.truetype("font/OpenSans-Regular.ttf", fontSize)
     authorFont = ImageFont.truetype("font/OpenSans-Regular.ttf", 32)

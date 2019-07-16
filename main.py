@@ -1,8 +1,8 @@
 
 from image import saveSubmission, saveComment
-from voice import speak
 from reddit import hotQuestions, moreComments
 from ffmpeg import createVideo
+from tts import get_token, save_audio
 
 def getUserInput(questions):
     print("Type the number corresponding to the Reddit thread(1-8)")
@@ -17,10 +17,12 @@ def getUserInput(questions):
 
 def start(submission):
     submission.comment_sort = "best"
-    submission.comment_limit = 30
+    submission.comment_limit = 70
 
     saveSubmission(submission.title)
-    speak(submission.title, "frame1")
+
+    access_token = get_token()
+    save_audio(submission.title, "frame1", access_token)
 
     num = 2
 
@@ -28,9 +30,9 @@ def start(submission):
         if isinstance(top_level_comment, moreComments()):
             continue
 
-        if len(top_level_comment.body) <= 600:
+        if len(top_level_comment.body) <= 900:
             saveComment(top_level_comment.author.name, top_level_comment.body, 42, num)
-            speak(top_level_comment.body, "frame" + str(num))
+            save_audio(top_level_comment.body, "frame" + str(num), access_token)
 
             print("Frame " + str(num) + " completed")
             num += 1

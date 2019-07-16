@@ -8,7 +8,7 @@ def mergeAudioVideo(frameSize):
     for num in range(frameSize):
         file.write("file 'video" + str(num+1) + ".mp4'\n")
 
-        command = "ffmpeg -loop 1 -y -i images/frame{frame}.png -i audios/frame{frame}.mp3 -shortest videos/video{frame}.mp4".format(frame=num+1)
+        command = "ffmpeg -loop 1 -y -i images/frame{frame}.png -i audios/frame{frame}.wav -shortest videos/video{frame}.mp4".format(frame=num+1)
         subprocess.call(command,shell=True)
     
     file.close()
